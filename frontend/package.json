@@ -8,11 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-sql": "^6.5.4",
     "axios": "^1.6.0",
-    "flowbite": "^2.0.0",
-    "flowbite-vue": "^0.1.0",
+    "codemirror": "^6.0.1",
     "highlight.js": "^11.9.0",
     "vue": "^3.3.4",
+    "vue-codemirror": "^6.1.1",
     "vue-router": "^4.2.5",
     "vue3-highlightjs": "^1.0.5"
   },

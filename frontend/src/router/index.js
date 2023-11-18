@@ -10,35 +10,21 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/realtime",
-      name: "realtime",
-      component: () => import("../views/RealtimeView.vue"),
+      path: "/sqlToJson",
+      name: "sqlToJson",
+      component: () => import("../views/SqlJsonView.vue"),
     },
     {
-      path: "/batch",
-      name: "batch",
-      component: () => import("../views/BatchView.vue"),
+      path: "/pinMatch",
+      name: "pinMatch",
+      component: () => import("../views/PinMatchView.vue"),
     },
-    {
-      path: "/online",
-      name: "online",
-      component: () => import("../views/OnlineView.vue"),
-    },
-    {
-      path: "/offline",
-      name: "offline",
-      component: () => import("../views/OfflineView.vue"),
-    },
+
     // {
-    //   path: "/flows",
-    //   name: "Flows",
-    //   component: () => import("../components/FlowGrid.vue"),
+    //   path: "/:id",
+    //   name: "Tool",
+    //   component: () => import("../components/FlowDetail.vue"),
     // },
-    {
-      path: "/flows/:id",
-      name: "FlowDetail",
-      component: () => import("../components/FlowDetail.vue"),
-    },
   ],
 });
 
