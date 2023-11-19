@@ -2,10 +2,10 @@
     <header class=" bg-white shadow">
         <div class="mx-40">
             <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-                <a href="/" class="flex items-center">
+                <RouterLink :to="{ name: 'home' }" class="flex items-center">
                     <img src="../asset/de-logo.svg" class="mr-3 h-6 sm:h-9" alt="Logo" />
                     <span class="self-center text-xl text-gray-800 font-semibold whitespace-nowra">DE Tool Box</span>
-                </a>
+                </RouterLink>
                 <div class="hidden md:flex space-x-8">
                     <form action="#" method="GET" class="hidden lg:block lg:pl-2">
                         <label for="topbar-search" class="sr-only">Search</label>
@@ -31,4 +31,6 @@
     </header>
 </template>
   
-  
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>
