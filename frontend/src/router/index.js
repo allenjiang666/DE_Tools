@@ -4,7 +4,7 @@ import HomeView from "../views/HomeView.vue";
 const base = process.env.NODE_ENV === "production" ? "/proxy/8000/" : "/";
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(base),
   routes: [
     {
       path: "/",
