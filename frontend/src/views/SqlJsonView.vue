@@ -60,7 +60,7 @@ const data = ref({
 
 const handleSubmit = async () => {
     try {
-        const response = await axios.post('/convertsql', data.value);
+        const response = await axios.post('proxy/8000/convertsql', data.value);
         console.log(response.data);
     } catch (error) {
         console.error(error);

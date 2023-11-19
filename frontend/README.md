@@ -1,29 +1,46 @@
-# EggML
+# Set up vue and fastapi to host on sagemaker instance
 
-This template should help get you started developing with Vue 3 in Vite.
+There are a few key point for this set up
 
-## Recommended IDE Setup
+## vite.config.js
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Make sure to set up base in the config
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```javascript
+base: process.env.NODE_ENV === "production" ? "/proxy/8000/" : "/
 ```
 
-### Compile and Hot-Reload for Development
+## Vue router
 
-```sh
-npm run dev
+1. create a const
+
+```javascript
+const base = process.env.NODE_ENV === "production" ? "/proxy/
+8000/" : "/";
 ```
 
-### Compile and Minify for Production
+2. add this variable to reateWebHistory() function as input:
 
-```sh
-npm run build
+```javascript
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+
+const base = process.env.NODE_ENV === "production" ? "/proxy/8000/" : "/";
+
+const router = createRouter({
+  history: createWebHistory(base),
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: HomeView,
+    },
+    {
+      path: "/sqlToJson",
+      name: "sqlToJson",
+      component: () => import("../views/SqlJsonView.vue"),
+    },
+});
+
+export default router;
 ```
