@@ -8,9 +8,8 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     // Specify the output directory for the production build
-    outDir: "../API/static", // Replace 'dist' with your preferred output directory name
+    outDir: "../API/dist", // Replace 'dist' with your preferred output directory name
   },
-  base: "",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
