@@ -3,30 +3,31 @@
     <form @submit.prevent="handleSubmit">
         <div class="w-full m-2 border border-gray-200 rounded-lg bg-gray-50 ">
             <div class="p-4 ">
-                <codemirror v-model="data.query" placeholder="TYPE OR PASTE YOUR QUERY ..." :style="{ height: '380px' }"
-                    :autofocus="true" :indent-with-tab="true" :tab-size="2" :extensions="extensions" />
+                <codemirror v-model="user_input.query" placeholder="TYPE OR PASTE YOUR QUERY ..."
+                    :style="{ height: '380px' }" :autofocus="true" :indent-with-tab="true" :tab-size="2"
+                    :extensions="extensions" />
             </div>
             <div class="p-3 grid gap-4 md:grid-cols-2">
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 ">Bucket</label>
-                    <input type="text" id="first_name" v-model="data.bucket"
+                    <input type="text" id="first_name" v-model="user_input.bucket"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                         placeholder="s3://...." required>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">File Name</label>
-                    <input type="text" v-model="data.file_path"
+                    <input type="text" v-model="user_input.file_path"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder=".json" required>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">User Email</label>
-                    <input type="email" v-model="data.email"
+                    <input type="email" v-model="user_input.email"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="john.doe@bestegg.com" required>
                 </div>
                 <div class="w-1/2 flex items-end m-2 p-2">
-                    <input type="checkbox" v-model="data.download"
+                    <input type="checkbox" v-model="user_input.download"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 ">
                     <label class="ml-2 text font-medium text-gray-900 0">Download Locally</label>
                 </div>
@@ -50,7 +51,7 @@ import axios from 'axios';
 
 const extensions = [sql()]
 
-const data = ref({
+const user_input = ref({
     query: '',
     email: '',
     bucket: '',
@@ -58,10 +59,11 @@ const data = ref({
     download: false
 })
 
+
 const handleSubmit = async () => {
     try {
-        const response = await axios.post('/proxy/8000/convertsql', data.value);
-        console.log(response.data);
+        const response = await axios.post('http://127.0.0.1:8000/convertsql', user_input.value);
+        console.log(response);
     } catch (error) {
         console.error(error);
     }
