@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import SqlJsonView from "../views/SqlJsonView.vue";
-import PinMatchView from "../views/PinMatchView.vue";
 
 const base = process.env.NODE_ENV === "production" ? "/proxy/8000/" : "/";
 
@@ -16,12 +14,12 @@ const router = createRouter({
     {
       path: "/sqlToJson",
       name: "sqlToJson",
-      component: SqlJsonView,
+      component: () => import("../views/SqlJsonView.vue"),
     },
     {
       path: "/pinMatch",
       name: "pinMatch",
-      component: PinMatchView,
+      component: () => import("../views/PinMatchView.vue"),
     },
 
     // {
