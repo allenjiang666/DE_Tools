@@ -10,7 +10,7 @@ export default defineConfig({
     // Specify the output directory for the production build
     outDir: "../API/static", // Replace 'dist' with your preferred output directory name
   },
-  base: "static/",
+  base: "",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
