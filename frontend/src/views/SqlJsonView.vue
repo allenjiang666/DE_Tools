@@ -62,7 +62,7 @@ const user_input = ref({
 
 const handleSubmit = async () => {
     try {
-        const response = await axios.post('http://127.0.0.1:8000/convertsql', user_input.value);
+        const response = await axios.post('/proxy/8000/convertsql', user_input.value);
         console.log(response);
     } catch (error) {
         console.error(error);
