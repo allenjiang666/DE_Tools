@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                <div class="text-red-800">{{ message }}</div>
+                <div class="text-red-600">{{ message }}</div>
                 <button :disabled="submitButton.isLoading" type="submit"
                     class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 inline-flex items-center">
 

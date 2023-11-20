@@ -48,6 +48,8 @@ def get_json(user_input:str):
     # upload the JSON string to S3 bucket
     
     response = s3.put_object(Bucket=user_input["bucket"], Key=user_input["file_path"], Body=json_str)
+
+    if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        return batch_dict
     
-    return batch_dict
 

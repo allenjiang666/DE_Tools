@@ -1,1 +1,0 @@
-import{b as r,e as a,f as s}from"./index-cefc17e9.js";const _=(e,t)=>{const o=e.__vccOpts||e;for(const[c,n]of t)o[c]=n;return o},i={},l=s("h2",null,"PL Pin Match Tool",-1),f=s("a",{href:"https://app.snowflake.com/bestegg/prod/w1KjVsV1PSBi/query"},"worksheet ",-1),h=[l,f];function d(e,t){return r(),a("div",null,h)}const u=_(i,[["render",d]]);export{u as default};
