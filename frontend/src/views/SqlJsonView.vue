@@ -6,13 +6,16 @@
                 <codemirror v-model="user_input.query" placeholder="TYPE OR PASTE YOUR QUERY ..."
                     :style="{ height: '380px' }" :autofocus="true" :indent-with-tab="true" :tab-size="2"
                     :extensions="extensions" />
+                <p class="text-gray-500 text-xs pt-1"> Make sure your query only returns <span class="text-red-500">ID
+                    </span> and <span class="text-red-500">Date</span> columns</p>
             </div>
+
             <div class="p-3 grid gap-4 md:grid-cols-2">
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 ">Bucket</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 ">Output Bucket </label>
                     <input type="text" id="first_name" v-model="user_input.bucket"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="s3://...." required>
+                        placeholder="my-s3-bucket" required>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">File Name</label>
@@ -51,8 +54,6 @@
                 </button>
             </div>
         </div>
-
-
     </form>
 </template>
   
@@ -89,7 +90,7 @@ function downloadData(data) {
     // Create a temporary link for downloading the file
     const downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(jsonBlob);
-    downloadLink.download = 'data.json'; // Name of the file
+    downloadLink.download = user_input.value.file_path; // Name of the file
 
     // Append the link to the document, trigger it, and then remove it
     document.body.appendChild(downloadLink);
@@ -108,8 +109,6 @@ const handleSubmit = async () => {
         if (user_input.value.download) {
             downloadData(response.data.json_data)
         }
-
-        ;
     } catch (error) {
         message.value = error
         console.error(error);
