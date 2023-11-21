@@ -1,6 +1,6 @@
-from metaflow import FlowSpec, step, Parameter, pip_base
-@pip_base(
-    packages={
+from metaflow import FlowSpec, step, Parameter, conda_base
+
+@conda_base(    packages={
         "s3fs": '2023.9.0',
     })
 class PLPinMatch(FlowSpec):

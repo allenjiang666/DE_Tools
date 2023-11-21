@@ -12,17 +12,16 @@ class userInput(BaseModel):
     file_path: str
     download: bool
 
+
 class PinMatchInput(BaseModel):
-    USER:str 
-    year: str
-    month: str
+    year: int
+    month: int
     db: str
     schm: str
     s3: str
     prefix: str
 
 app = FastAPI()
-
 
 @app.post("/convertsql")
 async def create_item(user_input: userInput):
@@ -35,13 +34,13 @@ async def create_item(user_input: userInput):
     
     return payload
 
+
 @app.post("/pinmatch")
-async def pinmatch(cliArgs: PinMatchInput):
+async def pinmatch(cliArgs:PinMatchInput):
     cliArgs = cliArgs.dict()
-    user = cliArgs['USER']
     command = [
         "python3", "pin_match/pl_pin_match.py",
-        "--environment=conda"
+        "--environment=pypi",
         "run",
         f"--year={cliArgs['year']}",
         f"--month={cliArgs['month']}",
@@ -50,10 +49,10 @@ async def pinmatch(cliArgs: PinMatchInput):
         f"--s3={cliArgs['s3']}",
         f"--prefix={cliArgs['prefix']}"
     ]
-    run_id = run_metaflow(command,user )
+    output = run_metaflow(command )
     payload = {}
-    payload['flow_status_link'] = f"https://metaflow.ml.bestegg.com/PLPinMatch/{run_id}"
-    payload['message'] = "Pipeline started successfully"
+    payload['flow_status_link'] = f"https://metaflow.ml.bestegg.com/PLPinMatch/{output['run_id']}"
+    payload['message'] = output['message']
     return payload
 
 app.mount("/", StaticFiles(directory="dist", html=True), name="static")

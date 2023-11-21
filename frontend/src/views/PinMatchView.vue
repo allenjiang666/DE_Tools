@@ -20,37 +20,29 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-600 ">Staging Database </label>
+                    <label class="block mb-2 text-sm font-medium text-gray-600 ">Database </label>
                     <input type="text" v-model="params.db"
                         class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="BE_SCRATCH" required>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-600 ">Staging Schema</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-600 ">Schema</label>
                     <input type="text" v-model="params.schm"
                         class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="DJOHN" required>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-600 ">Staging S3 Bucket</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-600 ">S3 Bucket</label>
                     <input type="text" v-model="params.s3"
                         class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-600 ">Staging S3 Prefix</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-600 ">S3 Prefix</label>
                     <input type="text" v-model="params.prefix"
                         class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required>
                 </div>
-
-                <div>
-                    <label class="block mb-2 text-sm font-medium text-rose-600">Username</label>
-                    <input type="text" v-model="params.USER"
-                        class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        required>
-                </div>
-
 
             </div>
             <div class="flex items-center justify-between px-3 py-2 ">
@@ -70,16 +62,18 @@
                     </svg> <span>{{ submitButton.label }}</span>
 
                 </button>
-                <div v-if="message" class="text-red-600">
-                    <span>{{ message }}</span>
-                    <button type="button" class="m-1 px-1 rounded-md text-blue-700" @click="showIframe"> show
-                        status</button>
-                </div>
+                <label class="relative inline-flex items-center mb-5 cursor-pointer">
+                    <input type="checkbox" v-model="isVisible" class="sr-only peer">
+                    <div
+                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-blue-600">
+                    </div>
+                    <span class="ms-3 text-sm font-medium text-gray-900 ">Show pipline status</span>
+                </label>
             </div>
         </div>
     </form>
+    <div v-if="message" class="p-2 text-red-600">{{ message }}</div>
     <div>
-
         <iframe v-if="isVisible" :src="iframe_url" class="w-full min-h-screen" frameborder="1"></iframe>
     </div>
 </template>
@@ -90,9 +84,8 @@ import axios from 'axios'
 
 // Form inputs
 const params = ref({
-    USER: "Elly",
-    year: "",
-    month: "",
+    year: "2023",
+    month: "1",
     db: "BE_SCRATCH",
     schm: "EARABMAKKI",
     s3: "mf-datascience",
@@ -114,7 +107,7 @@ const handleSubmit = async () => {
 
     try {
         const response = await axios.post(url, params.value);
-        console.log(params.value)
+
         message.value = response.data.message
         iframe_url.value = response.data.flow_status_link
     }
@@ -132,7 +125,6 @@ const handleSubmit = async () => {
 // track flow status
 
 const isVisible = ref(false)
-const showIframe = () => isVisible.value = !isVisible.value
 
 //  Track request response
 const message = ref('')
