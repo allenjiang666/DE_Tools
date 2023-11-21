@@ -73,15 +73,12 @@ const user_input = ref({
     download: false
 })
 
-
 const submitButton = ref({
     label: "Generate",
     isLoading: false
 });
 
 const message = ref('')
-
-const url = process.env.NODE_ENV === "production" ? "/proxy/8000/convertsql" : "http://127.0.0.1:8000/convertsql"
 
 function downloadData(data) {
     // Convert the data to a JSON blob
@@ -102,6 +99,7 @@ const handleSubmit = async () => {
     submitButton.value.isLoading = true;
     submitButton.value.label = 'Loading...';
     try {
+        const url = process.env.NODE_ENV === "production" ? "/proxy/8000/convertsql" : "http://127.0.0.1:8000/convertsql"
         const response = await axios.post(url, user_input.value);
 
         message.value = response.data.message

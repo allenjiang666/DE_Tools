@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.metaflow/
 .Python
 build/
 develop-eggs/
