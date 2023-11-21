@@ -114,6 +114,7 @@ const handleSubmit = async () => {
 
     try {
         const response = await axios.post(url, params.value);
+        console.log(params.value)
         message.value = response.data.message
         iframe_url.value = response.data.flow_status_link
     }

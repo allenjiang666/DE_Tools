@@ -41,6 +41,7 @@ async def pinmatch(cliArgs: PinMatchInput):
     user = cliArgs['USER']
     command = [
         "python3", "pin_match/pl_pin_match.py",
+        "--environment=conda"
         "run",
         f"--year={cliArgs['year']}",
         f"--month={cliArgs['month']}",
