@@ -1,5 +1,5 @@
 <template>
-    <h2 class="p-2 text-2xl font-bold text-center">Create Vintage Json File</h2>
+    <h2 class="p-2 text-2xl font-bold text-center">Create Vintage File</h2>
     <form @submit.prevent="handleSubmit">
         <div class="w-full m-2 border border-gray-200 rounded-lg bg-gray-50 ">
             <div class="p-4 ">
@@ -21,7 +21,7 @@
                     <label class="block mb-2 text-sm font-medium text-gray-900">File Name</label>
                     <input type="text" v-model="user_input.file_path"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder=".json" required>
+                        placeholder=".csv OR .json" required>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">User Email</label>
@@ -68,7 +68,7 @@ const extensions = [sql()]
 const user_input = ref({
     query: '',
     email: '',
-    bucket: '',
+    bucket: 'prd-customer-attribute-service-batches',
     file_path: '',
     download: false
 })
@@ -80,9 +80,14 @@ const submitButton = ref({
 
 const message = ref('')
 
-function downloadData(data) {
+function downloadData(data, fileType) {
     // Convert the data to a JSON blob
-    const jsonBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    if (fileType === 'json') {
+        const Blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    }
+    else {
+        const Blob = new Blob([JSON.stringify(data)], { type: 'text/csv' });
+    }
 
     // Create a temporary link for downloading the file
     const downloadLink = document.createElement('a');
@@ -103,9 +108,10 @@ const handleSubmit = async () => {
         const response = await axios.post(url, user_input.value);
 
         message.value = response.data.message
+        const fileType = response.data.file_type
 
         if (user_input.value.download) {
-            downloadData(response.data.json_data)
+            downloadData(response.data.json_data, fileType)
         }
     } catch (error) {
         message.value = error

@@ -1,11 +1,10 @@
 from metaflow import FlowSpec, step, Parameter, conda_base
 
-@conda_base(    packages={
-        "s3fs": '2023.9.0',
-    })
+# @conda_base(    packages={
+#         "s3fs": '2023.9.0',
+#     })
 class PLPinMatch(FlowSpec):
-    app_year = Parameter('year')
-    app_month = Parameter('month')
+    date = Parameter('date')
     database = Parameter('db')
     schema = Parameter('schema')
     ml_bucket_name = Parameter('s3')
@@ -17,15 +16,14 @@ class PLPinMatch(FlowSpec):
         import time
 
         args = {   
-            "app_year": self.app_year,
-            "app_month": self.app_month,
+            "app_date": self.date,
             "ml_bucket_name": self.ml_bucket_name, 
             "ml_prefix": self.ml_prefix,
             "database": self.database,
             "schema ": self.schema }
         
         print(args)
-        time.sleep(40)
+        time.sleep(20)
         self.next(self.end)
         
     @step

@@ -10,7 +10,7 @@ def run_metaflow(command):
     pattern = r"Workflow starting \(run-id (\d+)\)" 
     
     output={}
-    for i in range(10):
+    for i in range(3):
         message = process.stdout.readline()
         error = process.stderr.readline()
         match = re.search(pattern, message.strip())
@@ -28,6 +28,6 @@ def run_metaflow(command):
             output['run_id'] = 0
             output['message'] = "There is an error with your flow setup" 
             print(error) 
-    print('loop finished')
-    return output
+    print('Flow finished')
+    return output,process
 

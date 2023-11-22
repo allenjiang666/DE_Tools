@@ -1,1 +1,1 @@
-from .sql_to_json import get_json
+from .sql_to_json import get_data
