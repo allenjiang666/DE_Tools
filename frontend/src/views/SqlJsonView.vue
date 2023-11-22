@@ -91,7 +91,7 @@ function downloadData(data, fileType) {
 
     // Create a temporary link for downloading the file
     const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(jsonBlob);
+    downloadLink.href = URL.createObjectURL(Blob);
     downloadLink.download = user_input.value.file_path; // Name of the file
 
     // Append the link to the document, trigger it, and then remove it
