@@ -39,12 +39,13 @@ def get_data(user_input:str):
 
     file_type = user_input["file_path"].split('.')[-1]
 
+    # create an S3 client
+    s3 = boto3.client('s3')
+
     if file_type =='json':
 
         batch_dict = format_data(df, user_input['email'])
         
-        # create an S3 client
-        s3 = boto3.client('s3')
 
         # convert the dictionary to JSON string
         json_str = json.dumps(batch_dict)

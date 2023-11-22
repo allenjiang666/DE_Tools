@@ -82,16 +82,19 @@ const message = ref('')
 
 function downloadData(data, fileType) {
     // Convert the data to a JSON blob
+
+    let dataBlob = null
+
     if (fileType === 'json') {
-        const Blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        dataBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     }
     else {
-        const Blob = new Blob([JSON.stringify(data)], { type: 'text/csv' });
+        dataBlob = new Blob([JSON.stringify(data)], { type: 'text/csv' });
     }
 
     // Create a temporary link for downloading the file
     const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(Blob);
+    downloadLink.href = URL.createObjectURL(dataBlob);
     downloadLink.download = user_input.value.file_path; // Name of the file
 
     // Append the link to the document, trigger it, and then remove it

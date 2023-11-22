@@ -6,24 +6,6 @@ from sql_to_json import get_data
 from pin_match import run_metaflow
 import time 
 
-class ConvertSqlInput(BaseModel):
-    # Define your data structure here
-    query: str
-    email: str
-    bucket: str
-    file_path: str
-    download: bool
-
-
-
-class PinMatchInput(BaseModel):
-    year: int
-    month: int
-    db: str
-    schm: str
-    s3: str
-    prefix: str
-    flowSwitch:bool
 
 app = FastAPI()
 
@@ -35,16 +17,37 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+# --------------------------- create CAS test file --------------------------- #
+class userInput(BaseModel):
+    # Define your data structure here
+    query: str
+    email: str
+    bucket: str
+    file_path: str
+    download: bool
+
 @app.post("/convertsql")
-async def convertsql(user_input: ConvertSqlInput):
-    time.sleep(3)
+async def create_item(user_input: userInput):
     user_input = user_input.dict()
+    # data_str ,file_type = get_data(user_input)
     payload = {}
     if user_input['download']:
-        payload['json_data'] = user_input
+        payload['json_data'] = "This is test"
+    payload["file_type"] = "csv"
     payload['message'] = "Job is successful!"
+
     
     return payload
+
+# ------------------------------- PL Pin Match ------------------------------- #
+class PinMatchInput(BaseModel):
+    year: int
+    month: int
+    db: str
+    schm: str
+    s3: str
+    prefix: str
+    flowSwitch:bool
 
 current_process = None
 
