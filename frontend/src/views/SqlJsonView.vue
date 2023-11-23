@@ -86,10 +86,10 @@ function downloadData(data, fileType) {
     let dataBlob = null
 
     if (fileType === 'json') {
-        dataBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        dataBlob = new Blob(JSON.stringify[data], { type: 'application/json' });
     }
     else {
-        dataBlob = new Blob([JSON.stringify(data)], { type: 'text/csv' });
+        dataBlob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
     }
 
     // Create a temporary link for downloading the file
@@ -111,10 +111,12 @@ const handleSubmit = async () => {
         const response = await axios.post(url, user_input.value);
 
         message.value = response.data.message
+
         const fileType = response.data.file_type
+        const data = response.data.json_data
 
         if (user_input.value.download) {
-            downloadData(response.data.json_data, fileType)
+            downloadData(data, fileType)
         }
     } catch (error) {
         message.value = error
