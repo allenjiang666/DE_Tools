@@ -86,7 +86,7 @@ function downloadData(data, fileType) {
     let dataBlob = null
 
     if (fileType === 'json') {
-        dataBlob = new Blob(JSON.stringify[data], { type: 'application/json' });
+        dataBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     }
     else {
         dataBlob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
@@ -114,6 +114,7 @@ const handleSubmit = async () => {
 
         const fileType = response.data.file_type
         const data = response.data.json_data
+        console.log(data)
 
         if (user_input.value.download) {
             downloadData(data, fileType)

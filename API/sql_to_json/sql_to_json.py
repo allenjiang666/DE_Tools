@@ -68,4 +68,5 @@ def get_data(user_input:str):
 
         response = s3.put_object(Bucket=user_input["bucket"], Key=user_input["file_path"], Body=csv_str)
         
-        return csv_str, file_type
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+            return csv_str, file_type
