@@ -1,10 +1,10 @@
 <template>
-    <h2 class="p-2 text-2xl font-bold text-center">Create Vintage File</h2>
+    <h2 class="p-2 text-2xl font-bold text-center">Create CAS Batch and Vintage File</h2>
     <form @submit.prevent="handleSubmit">
         <div class="w-full m-2 border border-gray-200 rounded-lg bg-gray-50 ">
             <div class="p-4 ">
                 <codemirror v-model="user_input.query" placeholder="TYPE OR PASTE YOUR QUERY ..."
-                    :style="{ height: '380px' }" :autofocus="true" :indent-with-tab="true" :tab-size="2"
+                    :style="{ height: '350px' }" :autofocus="true" :indent-with-tab="true" :tab-size="2"
                     :extensions="extensions" />
                 <p class="text-gray-500 text-xs pt-1"> Make sure your query only returns <span class="text-red-500">ID
                     </span> and <span class="text-red-500">Date</span> columns</p>
@@ -12,10 +12,14 @@
 
             <div class="p-3 grid gap-4 md:grid-cols-2">
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 ">Output Bucket </label>
-                    <input type="text" id="first_name" v-model="user_input.bucket"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="my-s3-bucket" required>
+                    <label class="block mb-2 text-sm font-medium text-gray-600 ">Output Bucket</label>
+                    <select id="countries" v-model="user_input.bucket"
+                        class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 hover:cursor-pointer">
+                        <option value="prd-customer-attribute-service-batches">prd-customer-attribute-service-batches
+                        </option>
+                        <option value="prd-customer-attribute-service-vintage-automation">
+                            prd-customer-attribute-service-vintage-automation</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">File Name</label>
@@ -35,7 +39,7 @@
                     <label class="ml-2 text font-medium text-gray-900 0">Download</label>
                 </div>
             </div>
-            <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+            <div class="flex items-center justify-between px-3 py-2 dark:border-gray-600">
                 <div class="text-red-600">{{ message }}</div>
                 <button :disabled="submitButton.isLoading" type="submit"
                     class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 inline-flex items-center">
