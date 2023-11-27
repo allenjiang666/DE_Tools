@@ -60,19 +60,24 @@ async def pinmatch(cliArgs:PinMatchInput):
         f"--prefix={cliArgs['prefix']}"
     ]
 
-    if cliArgs["flowSwitch"] and current_process is None:
+    if cliArgs["flowSwitch"]:
         payload,current_process = run_metaflow(command )
         print("process start")
     
-    if not cliArgs["flowSwitch"] and current_process is not None:
-        current_process.terminate()
-        current_process= None
-        print('process ternimated')
-        payload = {
-            "run_id":0,
-            "message": "current flow has been terminated"
-        }
-
+    else: 
+        if current_process is not None:
+            current_process.terminate()
+            current_process= None
+            print('process ternimated')
+            payload = {
+                "run_id":0,
+                "message": "current flow has been terminated"
+            }
+        else: 
+            payload = {
+                "run_id":0,
+                "message": "There is no flow runing"
+            }
     return payload
 
 # ------------------------ Serve Vue app static files ------------------------ #

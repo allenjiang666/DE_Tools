@@ -25,7 +25,7 @@ const tools = [
         description: "This tool is used to prepare PL data to start pin match process"
     },
     {
-        id: "sqlToJson", name: 'SQL To Json', icon: 'subject', color: 'text-green-400',
+        id: "sqlToJson", name: 'Create CAS File', icon: 'subject', color: 'text-green-400',
         description: "Convert SQL query result to Json file for CAS Vintage Batch Calculation"
     },
 ]
